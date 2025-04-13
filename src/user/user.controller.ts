@@ -1,8 +1,9 @@
-import { Body, Controller, Delete, Get, Param, Post, Put ,ParseIntPipe, UseInterceptors, ClassSerializerInterceptor} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put ,ParseIntPipe, UseInterceptors, ClassSerializerInterceptor, UseGuards} from '@nestjs/common';
 import { UserService } from './user.service';
 import { createDtoUser } from './dtos/creatUserDto.dto';
 import { updateUserDto } from './dtos/updateUserDto.dto';
 import { LoggingInterceptor } from 'src/interceptor/logging.interceptor';
+import { AuthGuard } from 'src/Guards/auth.guard';
  
 
 @Controller('user')
@@ -20,6 +21,7 @@ export class UserController {
     }
 
     @Get()
+    @UseGuards(AuthGuard)
     findAll() {
         return this.userService.findAll();
     }

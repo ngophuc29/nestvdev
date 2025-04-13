@@ -226,7 +226,7 @@ và để sử dụng thì gọi nào vào controller
 ==>
          @UseInterceptors(LoggingInterceptor)
 
-#12 làm về middleware
+#12 làm về middleware 
 
 keyword : middleware
 
@@ -260,4 +260,32 @@ giống hướng dẫn ở trong tài liệu
 
 tới đây thì có thể rút ra dc 
 ==> trước khi trả ra data thì thứ tự chạy
-    ==> middleware => interceptor -> hàm
+    ==> middleware => interceptor -> hàm=> response
+
+
+#13 làm về Guards : để bảo về k cho 1 ng nào đó truy cập vào path 
+keyword : Guards
+
+- ở src tạo 1 folder Guards và tạo file logging.interceptor.ts 
+giống hướng dẫn ở trong tài liệu
+
+để sử dụng thì gọi này ngay phía trên của phương thức
+==>  @Get()
+    @UseGuards(AuthGuard)
+    findAll() {
+        return this.userService.findAll();
+    }
+
+=> báo lỗi từ server :
+    {
+    "message": "Forbidden resource",
+    "error": "Forbidden",
+    "statusCode": 403
+}
+
+tới đây thì có thể rút ra dc 
+==> trước khi trả ra data thì thứ tự chạy nếu có quyền 
+    ==> Request=> middleware => Guards => interceptor -> hàm => response
+
+==> còn k có quyền thì chỉ dùng ở Guards
+    ==> Request=> middleware => Guards  

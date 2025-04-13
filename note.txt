@@ -5,3 +5,9 @@ trong controller có 1 cái decorator @controller
 *sau đó import cả 2 vào app.module rồi sử dụng
 trong controller thì chỉ cần tạo contructor import service vào r dùng 
 hàm của nó
+
+
+#5
+
+npx nest g module/service/controller user
+-> để tạo 1 module/service/controller mới tên là user

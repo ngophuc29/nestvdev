@@ -1,0 +1,7 @@
+#4 cách tạo và dùng dependency injection
+*tạo 2 class service và controller
+trong service có 1 cái decorator @Injectable
+trong controller có 1 cái decorator @controller
+*sau đó import cả 2 vào app.module rồi sử dụng
+trong controller thì chỉ cần tạo contructor import service vào r dùng 
+hàm của nó

@@ -195,6 +195,7 @@ sau ==>
                 "statusCode": 400
             }
 
+<<<<<<< HEAD
 
 
 #9 thực hiển ẩn dữ liệu khi Request
@@ -214,3 +215,5 @@ ví dụ
         @Column()
         @Exclude()
         password: string;
+=======
+>>>>>>> 280be9c6dec29d80d3688bffa9067826546ac3b7

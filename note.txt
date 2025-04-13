@@ -227,3 +227,37 @@ và để sử dụng thì gọi nào vào controller
          @UseInterceptors(LoggingInterceptor)
 
 #12 làm về middleware
+
+keyword : middleware
+
+- ở src tạo 1 folder middleware và tạo file logging.interceptor.ts 
+giống hướng dẫn ở trong tài liệu
+
+để sử dụng nó thì gọi vào module .có thể gọi toàn cục hoặc module riêng
+ở đây thì gọi vào module user
+
+==> 
+
+            import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
+            import { UserService } from './user.service';
+            import { UserController } from './user.controller';
+            import { TypeOrmModule } from '@nestjs/typeorm';
+            import { User } from './user.entities';
+            import { LoggerMiddleware } from  '../middleware/logger.middleware';
+            @Module({
+            imports: [TypeOrmModule.forFeature([User])],
+            providers: [UserService],
+            controllers: [UserController]
+            })
+            export class UserModule implements NestModule {
+            configure(consumer: MiddlewareConsumer) {
+                consumer
+                .apply(LoggerMiddleware)
+                .forRoutes('*');
+            }
+            }
+
+
+tới đây thì có thể rút ra dc 
+==> trước khi trả ra data thì thứ tự chạy
+    ==> middleware => interceptor -> hàm

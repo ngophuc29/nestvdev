@@ -57,3 +57,34 @@ ví dụ entities User
 
 
 sau khi tạo muốn nó tự generate ra thì phải gọi nó vô entities trong module
+
+
+#7 crud voi typeorm
+sau khi tạo entities và generate ra dc bảng thì import type orm vô module của user để dùng
+==> 
+    TypeOrmModule.forFeature([User])
+
+sau đó tạo 1 repository trong service
+=>
+    constructor(@InjectRepository(User) private userRepo : Repository<User>) {}
+
+sau đó tạo 1 phương thức post để tạo user
+==>
+    createUser(body: any) {
+        const { email, password } = body
+        
+        const user = this.userRepo.create({ email, password });
+         
+        return this.userRepo.save(user);;
+    }
+
+và bên controller nhận về và gọi
+==> 
+    @Post()
+    createUser(@Body() body: any) { 
+        return this.userService.createUser(body);
+    }
+
+#8 crud voi typeorm
+
+sau đó giờ làm findAll(),findOne,update,delete

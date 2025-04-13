@@ -88,3 +88,110 @@ và bên controller nhận về và gọi
 #8 crud voi typeorm
 
 sau đó giờ làm findAll(),findOne,update,delete
+
+
+#9 lam` pipe 
+key word pipes
+=> dùng để validation và transform dữ liệu
+
+đầu tiên là parse giá trị của param sang int từ controller
+==>
+        @Param('id', ParseIntPipe) id: number,
+
+
+tiếp theo là transform dữ liệu thay vì dùng any thì dùng đúng dữ liệu của nó
+*tạo 1 folder dtos trong này sẽ chứa dtos cho từng method crud
+
+ví dụ dto cho create
+==>     
+            export class createDtoUser{
+
+                email: string;
+                password: string;
+            }
+
+sau khi tạo thì tuyền nó vô controller và service
+
+controller  :
+
+trước =>>
+            @Post()
+            createUser(@Body() body: any) { 
+                return this.userService.createUser(body);
+            }
+
+sau ==>
+            @Post()
+            createUser(@Body() body: createDtoUser) { 
+                return this.userService.createUser(body);
+            }
+
+
+service :
+
+trước =>>
+         async createUser(body: any) {
+            const { email, password } = body
+
+            const user = this.userRepo.create({ email, password });
+
+            return await this.userRepo.save(user);;
+        }
+
+
+sau ==>
+
+             async createUser(body: createDtoUser) {
+                const { email, password } = body
+
+                const user = this.userRepo.create({ email, password });
+
+                return await this.userRepo.save(user);;
+            }
+
+
+tiếp đến search key word validation
+==> 
+ npm i --save class-validator class-transformer
+ 
+ nó sẽ giúp validation dữ liệu đầu vào tốt hơn
+
+ muốn dùng dc nó thì phải config vô trong main.ts
+
+ ==>
+        app.useGlobalPipes(new ValidationPipe());
+
+ thêm nó vào trong main.ts (trong tài liệu có hd cách dùng)
+
+ ==> sau ghi import nó vào trong main thì gọi các phương thức của nó vào trong dtos
+
+trước ==>
+
+            export class createDtoUser{
+
+                email: string;
+                password: string;
+            }
+
+sau ==>
+                
+            import { IsEmail, IsNotEmpty } from 'class-validator';
+
+            export class createDtoUser {
+                @IsEmail()
+                email: string;
+
+                @IsNotEmpty()
+                password: string;
+            }
+
+
+đây là thông báo validation ở server khi mà validation
+            {
+                "message": [
+                    "email must be an email"
+                ],
+                "error": "Bad Request",
+                "statusCode": 400
+            }
+

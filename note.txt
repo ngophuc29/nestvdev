@@ -8,6 +8,52 @@ hàm của nó
 
 
 #5
-
 npx nest g module/service/controller user
 -> để tạo 1 module/service/controller mới tên là user
+
+
+#6 cách tích hợp orm và tạo table đầu tiên
+serach key word : nestjs database
+
+-> tải : npm install --save @nestjs/typeorm typeorm mysql2
+
+
+r import :
+
+TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'root',
+      database: 'test',
+      entities: [],
+      synchronize: true,
+    }),
+
+    vô trong app.modules.ts
+
+để tạo 1 table 
+1. tạo 1 entities 
+
+ví dụ entities User 
+            
+            import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+
+            @Entity()
+            export class User {
+            @PrimaryGeneratedColumn()
+            id: number;
+
+            @Column()
+            firstName: string;
+
+            @Column()
+            lastName: string;
+
+            @Column({ default: true })
+            isActive: boolean;
+            }
+
+
+sau khi tạo muốn nó tự generate ra thì phải gọi nó vô entities trong module

@@ -90,7 +90,8 @@ và bên controller nhận về và gọi
 sau đó giờ làm findAll(),findOne,update,delete
 
 
-#9 lam` pipe 
+#9 
+lam` pipe 
 key word pipes
 => dùng để validation và transform dữ liệu
 
@@ -195,25 +196,34 @@ sau ==>
                 "statusCode": 400
             }
 
-<<<<<<< HEAD
+ 
 
 
-#9 thực hiển ẩn dữ liệu khi Request
+#10 thực hiển ẩn dữ liệu khi Request
 - tạo thêm 1 dto cho update
 keyword Serialization : thực hiện các quá trình trước khi response dữ liệu
 
 hàm : @Exclude() sẽ giúp cho 1 trường nào đó mà bản muốn k response ra data khi Request
     @UseInterceptors(ClassSerializerInterceptor) : gọi hàm này ngay phía dưới @Decorater @controller
 ví dụ 
-        @Post()
-        @UseInterceptors(ClassSerializerInterceptor)
-        createUser(@Body() body: createDtoUser) { 
-            return this.userService.createUser(body);
-        }
+      @Controller('user')
+    @UseInterceptors(ClassSerializerInterceptor)
 
 
         @Column()
         @Exclude()
         password: string;
-=======
->>>>>>> 280be9c6dec29d80d3688bffa9067826546ac3b7
+ 
+
+
+#11 Làm về Interceptor
+keyword : interceptor
+
+- ở src tạo 1 folder interceptor và tạo file logging.interceptor.ts 
+giống hướng dẫn ở trong tài liệu
+
+và để sử dụng thì gọi nào vào controller
+==>
+         @UseInterceptors(LoggingInterceptor)
+
+#12 làm về middleware

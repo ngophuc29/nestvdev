@@ -2,10 +2,12 @@ import { Body, Controller, Delete, Get, Param, Post, Put ,ParseIntPipe, UseInter
 import { UserService } from './user.service';
 import { createDtoUser } from './dtos/creatUserDto.dto';
 import { updateUserDto } from './dtos/updateUserDto.dto';
+import { LoggingInterceptor } from 'src/interceptor/logging.interceptor';
  
 
 @Controller('user')
 @UseInterceptors(ClassSerializerInterceptor)
+@UseInterceptors(LoggingInterceptor)
 export class UserController {
 
     constructor(private userService:UserService) {}
